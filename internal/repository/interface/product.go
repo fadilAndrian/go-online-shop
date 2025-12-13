@@ -7,5 +7,5 @@ type ProductRepository interface {
 	FindById(id int64) (*domain.Product, error)
 	Create(product *domain.Product) error
 	Update(product *domain.Product) error
-	Delete(*domain.Product) error
+	Delete(product *domain.Product) error
 }
