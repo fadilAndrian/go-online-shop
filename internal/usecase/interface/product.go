@@ -2,10 +2,10 @@ package interfaces
 
 import (
 	"github.com/fadilAndrian/go-online-shop/internal/domain"
-	"github.com/fadilAndrian/go-online-shop/internal/usecase/dto"
+	"github.com/fadilAndrian/go-online-shop/internal/dto"
 )
 
-type ProductUsecase interface {
+type ProductUsecaseInterface interface {
 	ListProduct() ([]domain.Product, error)
 	GetProduct(id int64) (*domain.Product, error)
 	CreateProduct(req dto.CreateProductRequest) (*domain.Product, error)

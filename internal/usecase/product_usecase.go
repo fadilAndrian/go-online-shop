@@ -2,15 +2,15 @@ package usecase
 
 import (
 	"github.com/fadilAndrian/go-online-shop/internal/domain"
+	"github.com/fadilAndrian/go-online-shop/internal/dto"
 	repointerface "github.com/fadilAndrian/go-online-shop/internal/repository/interface"
-	"github.com/fadilAndrian/go-online-shop/internal/usecase/dto"
 )
 
 type ProductUsecase struct {
-	repo repointerface.ProductRepository
+	repo repointerface.ProductRepositoryInterface
 }
 
-func NewProductUsecase(repo repointerface.ProductRepository) *ProductUsecase {
+func NewProductUsecase(repo repointerface.ProductRepositoryInterface) *ProductUsecase {
 	return &ProductUsecase{repo}
 }
 

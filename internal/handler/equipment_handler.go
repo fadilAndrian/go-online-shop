@@ -6,20 +6,21 @@ import (
 
 	"github.com/fadilAndrian/go-online-shop/internal/dto"
 	"github.com/fadilAndrian/go-online-shop/internal/helper"
-	"github.com/fadilAndrian/go-online-shop/internal/usecase"
+	usecaseinterface "github.com/fadilAndrian/go-online-shop/internal/usecase/interface"
 	"github.com/gin-gonic/gin"
 )
 
-type ProductHandler struct {
-	uc *usecase.ProductUsecase
+type EquipmentHandler struct {
+	u usecaseinterface.EquipmentUsecaseInterface
 }
 
-func NewProductHandler(uc *usecase.ProductUsecase) *ProductHandler {
-	return &ProductHandler{uc}
+func NewEquipmentHandler(u usecaseinterface.EquipmentUsecaseInterface) *EquipmentHandler {
+	return &EquipmentHandler{u}
 }
 
-func (handler *ProductHandler) GetAll(c *gin.Context) {
-	products, err := handler.uc.ListProduct()
+func (h *EquipmentHandler) GetAll(c *gin.Context) {
+	equipments, err := h.u.ListEquipment()
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"err": err.Error(),
@@ -28,30 +29,30 @@ func (handler *ProductHandler) GetAll(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusAccepted, gin.H{
+		"data":    equipments,
 		"message": "Success",
-		"data":    products,
 	})
 }
 
-func (handler *ProductHandler) Get(c *gin.Context) {
+func (h *EquipmentHandler) Get(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	product, err := handler.uc.GetProduct(int64(id))
+	equipment, err := h.u.GetEquipment(int64(id))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
+		c.JSON(http.StatusInternalServerError, gin.H{
 			"err": err.Error(),
 		})
 		return
 	}
 
 	c.JSON(http.StatusAccepted, gin.H{
+		"data":    equipment,
 		"message": "Success",
-		"data":    product,
 	})
 }
 
-func (handler *ProductHandler) Create(c *gin.Context) {
-	var req dto.CreateProductRequest
+func (h *EquipmentHandler) Create(c *gin.Context) {
+	var req dto.CreateEquipmentRequest
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -67,7 +68,7 @@ func (handler *ProductHandler) Create(c *gin.Context) {
 		return
 	}
 
-	product, err := handler.uc.CreateProduct(req)
+	equipment, err := h.u.CreateEquipment(req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"err": err.Error(),
@@ -76,15 +77,15 @@ func (handler *ProductHandler) Create(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusAccepted, gin.H{
-		"message": "Product Created.",
-		"data":    product,
+		"data":    equipment,
+		"message": "Equipment Created",
 	})
 }
 
-func (handler *ProductHandler) Update(c *gin.Context) {
+func (h *EquipmentHandler) Update(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	var req dto.UpdateProductRequest
+	var req dto.UpdateEquipmentRequest
 
 	if err := c.ShouldBindJSON(&req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -100,7 +101,7 @@ func (handler *ProductHandler) Update(c *gin.Context) {
 		return
 	}
 
-	result, err := handler.uc.UpdateProduct(int64(id), req)
+	equipment, err := h.u.UpdateEquipment(int64(id), req)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"err": err.Error(),
@@ -109,15 +110,15 @@ func (handler *ProductHandler) Update(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusAccepted, gin.H{
-		"message": "Product Updated.",
-		"data":    result,
+		"data":    equipment,
+		"message": "Equipment Updated",
 	})
 }
 
-func (handler *ProductHandler) Delete(c *gin.Context) {
+func (h *EquipmentHandler) Delete(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 
-	if err := handler.uc.DeleteProduct(int64(id)); err != nil {
+	if err := h.u.DeleteEquipment(int64(id)); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"err": err.Error(),
 		})
@@ -125,6 +126,7 @@ func (handler *ProductHandler) Delete(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusAccepted, gin.H{
-		"message": "Product Deleted.",
+		"data":    "",
+		"message": "Equipment Deleted",
 	})
 }
