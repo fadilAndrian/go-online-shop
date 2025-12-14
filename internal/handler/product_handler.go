@@ -4,9 +4,9 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/fadilAndrian/go-online-shop/internal/dto"
 	"github.com/fadilAndrian/go-online-shop/internal/helper"
 	"github.com/fadilAndrian/go-online-shop/internal/usecase"
-	"github.com/fadilAndrian/go-online-shop/internal/usecase/dto"
 	"github.com/gin-gonic/gin"
 )
 

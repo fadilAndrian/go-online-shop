@@ -2,7 +2,7 @@ package interfaces
 
 import "github.com/fadilAndrian/go-online-shop/internal/domain"
 
-type EquipmentRepository interface {
+type EquipmentRepositoryInterface interface {
 	FindAll() ([]domain.Equipment, error)
 	FindById() (*domain.Equipment, error)
 	Create(e *domain.Equipment) error

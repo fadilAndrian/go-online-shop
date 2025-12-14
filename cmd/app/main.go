@@ -25,7 +25,7 @@ func main() {
 
 	equipmentRepository := repository.NewEquipmentRepository(db)
 	equipmentUsecase := usecase.NewEquipmentUsecase(*equipmentRepository)
-	equipmentHandler := handler.NewEquipmentHandler(*equipmentUsecase)
+	equipmentHandler := handler.NewEquipmentHandler(equipmentUsecase)
 
 	r := router.Routes(
 		productHandler,

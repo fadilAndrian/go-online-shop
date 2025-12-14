@@ -4,17 +4,17 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/fadilAndrian/go-online-shop/internal/dto"
 	"github.com/fadilAndrian/go-online-shop/internal/helper"
-	"github.com/fadilAndrian/go-online-shop/internal/usecase"
-	"github.com/fadilAndrian/go-online-shop/internal/usecase/dto"
+	usecaseinterface "github.com/fadilAndrian/go-online-shop/internal/usecase/interface"
 	"github.com/gin-gonic/gin"
 )
 
 type EquipmentHandler struct {
-	u usecase.EquipmentUsecase
+	u usecaseinterface.EquipmentUsecaseInterface
 }
 
-func NewEquipmentHandler(u usecase.EquipmentUsecase) *EquipmentHandler {
+func NewEquipmentHandler(u usecaseinterface.EquipmentUsecaseInterface) *EquipmentHandler {
 	return &EquipmentHandler{u}
 }
 
