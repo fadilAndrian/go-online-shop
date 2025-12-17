@@ -6,15 +6,15 @@ import (
 
 	"github.com/fadilAndrian/go-online-shop/internal/dto"
 	"github.com/fadilAndrian/go-online-shop/internal/helper"
-	"github.com/fadilAndrian/go-online-shop/internal/usecase"
+	usecaseinterface "github.com/fadilAndrian/go-online-shop/internal/usecase/interface"
 	"github.com/gin-gonic/gin"
 )
 
 type ProductHandler struct {
-	uc *usecase.ProductUsecase
+	uc usecaseinterface.ProductUsecaseInterface
 }
 
-func NewProductHandler(uc *usecase.ProductUsecase) *ProductHandler {
+func NewProductHandler(uc usecaseinterface.ProductUsecaseInterface) *ProductHandler {
 	return &ProductHandler{uc}
 }
 
