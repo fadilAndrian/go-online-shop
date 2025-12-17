@@ -14,7 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRoute(h *EquipmentHandler) *gin.Engine {
+func SetupEquipmentRoute(h *EquipmentHandler) *gin.Engine {
 	gin.SetMode(gin.TestMode)
 
 	r := gin.New()
@@ -28,7 +28,7 @@ func SetupRoute(h *EquipmentHandler) *gin.Engine {
 	return r
 }
 
-func NewMockData() *mock.EquipmentUsecaseMock {
+func EuqipmentMockData() *mock.EquipmentUsecaseMock {
 	return &mock.EquipmentUsecaseMock{
 		ListFn: func() ([]domain.Equipment, error) {
 			return []domain.Equipment{
@@ -82,11 +82,11 @@ func NewMockData() *mock.EquipmentUsecaseMock {
 	}
 }
 
-func SetupTest() (*gin.Engine, *httptest.ResponseRecorder) {
-	mockData := NewMockData()
+func SetupEquipmentHandlerTest() (*gin.Engine, *httptest.ResponseRecorder) {
+	mockData := EuqipmentMockData()
 
 	handler := NewEquipmentHandler(mockData)
-	router := SetupRoute(handler)
+	router := SetupEquipmentRoute(handler)
 
 	w := httptest.NewRecorder()
 
@@ -94,7 +94,7 @@ func SetupTest() (*gin.Engine, *httptest.ResponseRecorder) {
 }
 
 func TestGetAllEquipment(t *testing.T) {
-	router, w := SetupTest()
+	router, w := SetupEquipmentHandlerTest()
 
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
 
@@ -106,7 +106,7 @@ func TestGetAllEquipment(t *testing.T) {
 }
 
 func TestGetEquipmentById(t *testing.T) {
-	router, w := SetupTest()
+	router, w := SetupEquipmentHandlerTest()
 
 	req := httptest.NewRequest(http.MethodGet, "/1", nil)
 
@@ -118,7 +118,7 @@ func TestGetEquipmentById(t *testing.T) {
 }
 
 func TestCreateEquipment_Success(t *testing.T) {
-	router, w := SetupTest()
+	router, w := SetupEquipmentHandlerTest()
 
 	body, _ := json.Marshal(gin.H{
 		"name":          "Baskom",
@@ -136,7 +136,7 @@ func TestCreateEquipment_Success(t *testing.T) {
 }
 
 func TestUpdateEquipment(t *testing.T) {
-	router, w := SetupTest()
+	router, w := SetupEquipmentHandlerTest()
 
 	body, _ := json.Marshal(gin.H{
 		"name":          "Sepatula",
@@ -154,7 +154,7 @@ func TestUpdateEquipment(t *testing.T) {
 }
 
 func TestDeleteEquipment(t *testing.T) {
-	router, w := SetupTest()
+	router, w := SetupEquipmentHandlerTest()
 
 	req := httptest.NewRequest(http.MethodDelete, "/1", nil)
 	router.ServeHTTP(w, req)
