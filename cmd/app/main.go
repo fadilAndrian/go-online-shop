@@ -24,12 +24,17 @@ func main() {
 	productHandler := handler.NewProductHandler(productUsecase)
 
 	equipmentRepository := repository.NewEquipmentRepository(db)
-	equipmentUsecase := usecase.NewEquipmentUsecase(*equipmentRepository)
+	equipmentUsecase := usecase.NewEquipmentUsecase(equipmentRepository)
 	equipmentHandler := handler.NewEquipmentHandler(equipmentUsecase)
+
+	ingredientRepository := repository.NewIngredientRepository(db)
+	ingredientUsecase := usecase.NewIngredientUsecase(ingredientRepository)
+	ingredientHandler := handler.NewIngredientHandler(ingredientUsecase)
 
 	r := router.Routes(
 		productHandler,
 		equipmentHandler,
+		ingredientHandler,
 	)
 	r.Run()
 }

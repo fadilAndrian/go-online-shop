@@ -8,6 +8,7 @@ import (
 func Routes(
 	ProductHandler *handler.ProductHandler,
 	EquipmentHandler *handler.EquipmentHandler,
+	IngredientHandler *handler.IngredientHandler,
 ) *gin.Engine {
 	r := gin.Default()
 
@@ -18,6 +19,9 @@ func Routes(
 
 	EquipmentGroup := api.Group("/equipments")
 	RegisterEquipmentRoutes(EquipmentGroup, EquipmentHandler)
+
+	IngredientGroup := api.Group("/ingredients")
+	RegisterIngredientRoutes(IngredientGroup, IngredientHandler)
 
 	return r
 }

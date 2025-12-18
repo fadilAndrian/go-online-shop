@@ -3,14 +3,14 @@ package usecase
 import (
 	"github.com/fadilAndrian/go-online-shop/internal/domain"
 	"github.com/fadilAndrian/go-online-shop/internal/dto"
-	"github.com/fadilAndrian/go-online-shop/internal/repository"
+	repointerface "github.com/fadilAndrian/go-online-shop/internal/repository/interface"
 )
 
 type EquipmentUsecase struct {
-	r repository.EquipmentRepository
+	r repointerface.EquipmentRepositoryInterface
 }
 
-func NewEquipmentUsecase(r repository.EquipmentRepository) *EquipmentUsecase {
+func NewEquipmentUsecase(r repointerface.EquipmentRepositoryInterface) *EquipmentUsecase {
 	return &EquipmentUsecase{r}
 }
 
